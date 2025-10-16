@@ -1,2 +1,0 @@
-# Resolucion-Sistemas-Ecuaciones-Web
-
