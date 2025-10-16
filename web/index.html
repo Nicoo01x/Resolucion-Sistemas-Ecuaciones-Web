@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resolucion Paso a Paso - Gauss y Determinantes</title>
+    <link rel="stylesheet" href="./css/estilos.css" />
+  </head>
+  <body>
+    <header class="encabezado">
+      <div class="titulo-pagina">
+        <h1>Resolucion Visual de Sistemas Lineales</h1>
+        <p>Gauss, Gauss-Jordan y determinantes con explicaciones paso a paso.</p>
+      </div>
+      <button id="toggle-tema" class="boton--tema" type="button" aria-label="Cambiar a modo claro">
+        <span class="icono-tema" aria-hidden="true">&#127769;</span>
+      </button>
+    </header>
+
+    <main class="contenedor">
+      <div class="layout">
+        <section class="tarjeta tarjeta--configuracion">
+          <h2>Configuracion de la matriz aumentada</h2>
+          <div class="configuracion">
+            <label for="dimension">Dimension (n >= 2)</label>
+            <input id="dimension" type="number" min="2" max="6" value="3" />
+            <button id="cargar-demo" class="boton secundario" type="button">Cargar ejemplo 3x3</button>
+          </div>
+          <div id="contenedor-matriz" class="matriz"></div>
+          <div class="acciones">
+            <button id="btn-gauss" class="boton primario" type="button">Resolver por Gauss</button>
+            <button id="btn-rref" class="boton" type="button">Mostrar Gauss-Jordan (RREF)</button>
+            <button id="btn-determinante" class="boton" type="button">Determinante (auto)</button>
+            <button id="btn-exportar-txt" class="boton secundario" type="button">Exportar .txt</button>
+          </div>
+        </section>
+
+        <section class="tarjeta tarjeta--pasos">
+          <h2>Pasos del procedimiento</h2>
+          <div id="panel-pasos" class="pasos" aria-live="polite"></div>
+        </section>
+
+        <section class="tarjeta tarjeta--laplace" id="seccion-laplace">
+          <h2>Arbol de expansion de Laplace</h2>
+          <p class="laplace-aviso">
+            Se genera unicamente al calcular determinantes mediante Laplace (orden >= 4). Los nodos son plegables.
+          </p>
+          <div id="laplace-contenedor" class="laplace"></div>
+        </section>
+      </div>
+
+      <div id="alertas" class="alertas" role="status" aria-live="assertive"></div>
+    </main>
+
+    <footer class="pie">
+      <a href="https://github.com/Nicoo01x" target="_blank" rel="noopener noreferrer" class="footer-link">
+        <div class="footer-info">
+          <span class="footer-badge">
+            <svg class="footer-icon" aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M5 16.5h14l1-9-4 2-4-5-4 5-4-2 1 9Zm0 0v1a2.5 2.5 0 0 0 2.5 2.5h9A2.5 2.5 0 0 0 19 17.5v-1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+            </svg>
+            CEO
+          </span>
+          <span class="footer-text">Nicolas Cabanillas</span>
+        </div>
+        <img src="https://avatars.githubusercontent.com/Nicoo01x" alt="Foto de perfil de Nicolas Cabanillas" class="footer-img" />
+      </a>
+    </footer>
+
+    <script src="./js/app.js"></script>
+  </body>
+</html>
