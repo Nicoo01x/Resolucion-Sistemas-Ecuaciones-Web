@@ -39,4 +39,4 @@ A pesar de que no formó parte del ejercicio original, planificamos una versión
 - `src/`: código fuente principal de la aplicación de consola.
 - `bin/`, `obj/`: artefactos generados por Visual Studio durante la compilación.
 
-Autores: Nicolas Cabanillas, Sebastian Revuelta, Bautista Manchini.
+Autores: Nicolas Cabanillas, Sebastian Revuelta, Bautista Mancini.
