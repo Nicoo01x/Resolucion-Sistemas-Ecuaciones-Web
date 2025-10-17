@@ -1,8 +1,8 @@
 ## Características principales
 - Menú guiado que permite elegir entre resolución automática, Gauss, Gauss-Jordan o cálculo de determinantes.
 - Selección inteligente del método (Gauss o Gauss-Jordan) según el orden del sistema e indicaciones en cada paso.
-- Reportes exportables en texto plano con el detalle de todas las operaciones realizadas.
-- Limpieza de redondeos y mensajes contextualizados para interpretar rápidamente si el sistema es compatible, incompatible o indeterminado.
+- Reportes exportables .txt con el detalle de todas las operaciones realizadas.
+
 
 ## Funciones principales del programa
 - `resolverSistemaAutomatico` (`src/resolver.cpp`): analiza el tamaño del sistema y decide si conviene Gauss o Gauss-Jordan, guardando los pasos intermedios.
