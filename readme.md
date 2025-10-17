@@ -14,19 +14,19 @@
 
 
 ## Capturas del funcionamiento
-![Opcion 1 - Resolucion automatica](docs/capturas/opcion1.png)
+![Opcion 1 - Resolucion automatica](consola/docs/capturas/opcion1.png)
 Resolucion automatica con seleccion del metodo segun el tamano del sistema y vector solucion final.
 
-![Opcion 2 - Eliminacion de Gauss](docs/capturas/opcion2.png)
+![Opcion 2 - Eliminacion de Gauss](consola/docs/capturas/opcion2.png)
 Aplicacion directa de la eliminacion de Gauss.
 
-![Opcion 3 - Gauss-Jordan](docs/capturas/opcion3.png)
+![Opcion 3 - Gauss-Jordan](consola/docs/capturas/opcion3.png)
 Proceso completo de Gauss-Jordan hasta obtener la matriz reducida y el vector solucion.
 
-![Opcion 4 - Determinante](docs/capturas/opcion4.png)
+![Opcion 4 - Determinante](consola/docs/capturas/opcion4.png)
 Calculo de la determinante 3x3 aplicando Sarrus.
 
-![Opcion 5 - Historial](docs/capturas/opcion5.png)
+![Opcion 5 - Historial](consola/docs/capturas/opcion5.png)
 Visualizacion del historial de ejercicios almacenados (en este caso vacio).
 
 
