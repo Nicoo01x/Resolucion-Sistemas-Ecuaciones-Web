@@ -32,6 +32,60 @@ void limpiarFlujo() {
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
+Matriz solicitarMatrizPorEcuaciones(int n) {
+    // Arma la matriz pidiendo coeficientes y terminos independientes uno por uno.
+    Matriz matriz = crearMatriz(static_cast<size_t>(n), static_cast<size_t>(n + 1), 0.0);
+    cout << "Ingrese las ecuaciones del sistema." << endl;
+    for (int i = 0; i < n; ++i) {
+        cout << endl << "Ecuacion " << (i + 1) << ":" << endl;
+        for (int j = 0; j < n; ++j) {
+            ostringstream mensaje;
+            mensaje << "Coeficiente de x" << (j + 1) << ": ";
+            matriz[i][j] = solicitarDouble(mensaje.str());
+        }
+        matriz[i][n] = solicitarDouble("Termino independiente: ");
+    }
+    limpiarFlujo();
+    return matriz;
+}
+
+Matriz solicitarMatrizPorFilas(int n) {
+    // Pide la matriz aumentada completa ingresando cada fila separada por espacios.
+    Matriz matriz = crearMatriz(static_cast<size_t>(n), static_cast<size_t>(n + 1), 0.0);
+    cout << "Ingrese la matriz aumentada completa (" << n << " filas, " << (n + 1) << " columnas)." << endl;
+    cout << "Escriba cada fila con " << (n + 1) << " valores separados por espacios." << endl;
+    for (int i = 0; i < n; ++i) {
+        while (true) {
+            cout << "Fila " << (i + 1) << ": ";
+            string linea;
+            getline(cin, linea);
+            if (linea.empty()) {
+                cout << "La fila no puede quedar vacia. Intente nuevamente." << endl;
+                continue;
+            }
+            istringstream fila(linea);
+            vector<double> valores;
+            double valor = 0.0;
+            while (fila >> valor) {
+                valores.push_back(valor);
+            }
+            if (fila.fail() && !fila.eof()) {
+                cout << "Se detecto un valor invalido. Vuelva a ingresar la fila." << endl;
+                continue;
+            }
+            if (valores.size() != static_cast<size_t>(n + 1)) {
+                cout << "Debe ingresar exactamente " << (n + 1) << " valores." << endl;
+                continue;
+            }
+            for (int j = 0; j < n + 1; ++j) {
+                matriz[i][j] = valores[static_cast<size_t>(j)];
+            }
+            break;
+        }
+    }
+    return matriz;
+}
+
 } // namespace
 
 int menuPrincipal() {
@@ -41,9 +95,10 @@ int menuPrincipal() {
     cout << "2) Resolver sistema por eliminacion de Gauss" << endl;
     cout << "3) Resolver sistema por Gauss-Jordan" << endl;
     cout << "4) Calcular determinante (seleccion automatica)" << endl;
-    cout << "5) Salir" << endl;
+    cout << "5) Ejercicios anteriores" << endl;
+    cout << "6) Salir" << endl;
     int opcion = solicitarEntero("Seleccione una opcion: ", 1);
-    while (opcion < 1 || opcion > 5) {
+    while (opcion < 1 || opcion > 6) {
         cout << "Opcion invalida." << endl;
         opcion = solicitarEntero("Seleccione una opcion: ", 1);
     }
@@ -66,20 +121,19 @@ int solicitarEntero(const string& mensaje, int minimo) {
 }
 
 Matriz solicitarMatrizAumentada(int n) {
-    // Arma la matriz aumentada pidiendo coeficientes y terminos independientes uno por uno.
-    Matriz matriz = crearMatriz(static_cast<size_t>(n), static_cast<size_t>(n + 1), 0.0);
-    cout << "Ingrese las ecuaciones del sistema." << endl;
-    for (int i = 0; i < n; ++i) {
-        cout << endl << "Ecuacion " << (i + 1) << ":" << endl;
-        for (int j = 0; j < n; ++j) {
-            ostringstream mensaje;
-            mensaje << "Coeficiente de x" << (j + 1) << ": ";
-            matriz[i][j] = solicitarDouble(mensaje.str());
-        }
-        matriz[i][n] = solicitarDouble("Termino independiente: ");
+    // Permite elegir entre ingresar ecuaciones o la matriz aumentada completa.
+    cout << endl << "Seleccione el modo de ingreso de la matriz aumentada:" << endl;
+    cout << "1) Ingresar ecuaciones una por una" << endl;
+    cout << "2) Ingresar matriz aumentada completa" << endl;
+    int modo = solicitarEntero("Modo (1-2): ", 1);
+    while (modo < 1 || modo > 2) {
+        cout << "Opcion invalida." << endl;
+        modo = solicitarEntero("Modo (1-2): ", 1);
     }
-    limpiarFlujo();
-    return matriz;
+    if (modo == 1) {
+        return solicitarMatrizPorEcuaciones(n);
+    }
+    return solicitarMatrizPorFilas(n);
 }
 
 Matriz solicitarMatrizCuadrada(int n) {

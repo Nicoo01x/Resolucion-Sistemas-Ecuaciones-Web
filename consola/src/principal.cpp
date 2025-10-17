@@ -65,10 +65,11 @@ void presentarResultadoSistema(const vector<Paso>& pasos,
     mostrarPasos(pasos, cout);
     mostrarResumenSistema(resultado);
 
+    const string reporte = construirReporteSistema(pasos, resultado, metodo);
+
     bool guardar = confirmarAccion("Guardar reporte del sistema en ./salidas/?", true);
     if (guardar) {
         string ruta;
-        const string reporte = construirReporteSistema(pasos, resultado, metodo);
         if (guardarReporte(reporte, ruta)) {
             cout << "Reporte guardado en: " << ruta << "\n";
         } else {
@@ -121,9 +122,14 @@ void ejecutarSistemaAutomatico() {
 void ejecutarDeterminante() {
     // Pide la matriz cuadrada y va mostrando cada paso del calculo de la determinante.
     mostrarTitulo("Calculo de determinante (seleccion automatica)", cout);
-    cout << "Segun el orden se aplica Sarrus (3x3) o Laplace.\n";
-    int n = solicitarEntero("Ingrese el orden de la matriz cuadrada (n >= 1): ", 1);
-    Matriz matriz = solicitarMatrizCuadrada(n);
+    cout << "Metodo fijo: regla de Sarrus disponible solo para matrices 3x3.\n";
+    const int ordenPermitido = 3;
+    int ordenIngresado = solicitarEntero("Ingrese el orden de la matriz cuadrada (n = 3): ", ordenPermitido);
+    while (ordenIngresado != ordenPermitido) {
+        cout << "Solo se permiten matrices de orden 3 para calcular la determinante.\n";
+        ordenIngresado = solicitarEntero("Ingrese el orden de la matriz cuadrada (n = 3): ", ordenPermitido);
+    }
+    Matriz matriz = solicitarMatrizCuadrada(ordenPermitido);
 
     vector<string> pasosDeterminante;
     double valor = determinanteAutomatico(matriz, pasosDeterminante);
@@ -137,19 +143,37 @@ void ejecutarDeterminante() {
     ostringstream reporte;
     reporte << fixed << setprecision(2);
     reporte << "=== REPORTE DE DETERMINANTE ===\n";
-    reporte << "Orden de la matriz: " << n << "\n";
+    reporte << "Orden de la matriz: " << ordenPermitido << "\n";
     reporte << "Resultado: " << valor << "\n";
     for (const auto& linea : pasosDeterminante) {
         reporte << linea << '\n';
     }
+    const string reporteTexto = reporte.str();
 
     bool guardar = confirmarAccion("Guardar reporte del determinante en ./salidas/?", true);
     if (guardar) {
         string ruta;
-        if (guardarReporte(reporte.str(), ruta)) {
+        if (guardarReporte(reporteTexto, ruta)) {
             cout << "Reporte guardado en: " << ruta << "\n";
         } else {
             cout << "No fue posible guardar el reporte.\n";
+        }
+    }
+}
+
+void mostrarHistorialProcedimientos() {
+    // Lee los reportes en texto y los muestra por pantalla.
+    mostrarTitulo("Ejercicios anteriores", cout);
+    const vector<ReporteGuardado> registros = cargarReportesTexto();
+    if (registros.empty()) {
+        cout << "No hay ejercicios guardados en el historial.\n";
+        return;
+    }
+    for (size_t i = 0; i < registros.size(); ++i) {
+        cout << "\n" << registros[i].titulo << "\n";
+        cout << registros[i].contenido << "\n";
+        if (i + 1 < registros.size()) {
+            cout << string(40, '-') << "\n";
         }
     }
 }
@@ -176,6 +200,9 @@ int main() {
             ejecutarDeterminante();
             break;
         case 5:
+            mostrarHistorialProcedimientos();
+            break;
+        case 6:
             continuar = false;
             cout << "Ejecucion finalizada.\n";
             break;
