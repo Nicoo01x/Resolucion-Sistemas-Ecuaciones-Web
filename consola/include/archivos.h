@@ -4,12 +4,18 @@
 #define ARCHIVOS_H
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
-string generarTimestamp();
+struct ReporteGuardado {
+    string titulo;
+    string contenido;
+};
 
 bool guardarReporte(const string& contenido, string& rutaGenerada);
+
+vector<ReporteGuardado> cargarReportesTexto();
 
 #endif // ARCHIVOS_H
 
